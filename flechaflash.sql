@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-10-2026 a las 00:10:04
+-- Tiempo de generación: 26-10-2026 a las 23:25:49
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `flechaflash`
 --
+CREATE DATABASE IF NOT EXISTS `flechaflash` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `flechaflash`;
 
 -- --------------------------------------------------------
 
@@ -44,7 +46,7 @@ CREATE TABLE `colectivos` (
 --
 
 CREATE TABLE `lugares` (
-  `ID_Lugar` int(11) NOT NULL,
+  `ID_Asiento` int(11) NOT NULL,
   `ID_Colectivo` int(11) NOT NULL,
   `NumeroAsiento` int(11) DEFAULT NULL,
   `Estado` tinyint(1) DEFAULT 1
@@ -94,11 +96,11 @@ CREATE TABLE `pasajes` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `rutas`
+-- Estructura de tabla para la tabla `viaje`
 --
 
-CREATE TABLE `rutas` (
-  `ID_Ruta` int(11) NOT NULL,
+CREATE TABLE `viaje` (
+  `ID_Viaje` int(11) NOT NULL,
   `Origen` varchar(50) DEFAULT NULL,
   `Destino` varchar(50) DEFAULT NULL,
   `HoraSalida` time DEFAULT NULL,
@@ -123,7 +125,7 @@ ALTER TABLE `colectivos`
 -- Indices de la tabla `lugares`
 --
 ALTER TABLE `lugares`
-  ADD PRIMARY KEY (`ID_Lugar`),
+  ADD PRIMARY KEY (`ID_Asiento`),
   ADD KEY `ID_Colectivo` (`ID_Colectivo`);
 
 --
@@ -144,10 +146,10 @@ ALTER TABLE `pasajes`
   ADD KEY `ID_Ruta` (`ID_Ruta`);
 
 --
--- Indices de la tabla `rutas`
+-- Indices de la tabla `viaje`
 --
-ALTER TABLE `rutas`
-  ADD PRIMARY KEY (`ID_Ruta`),
+ALTER TABLE `viaje`
+  ADD PRIMARY KEY (`ID_Viaje`),
   ADD KEY `ID_Colectivo` (`ID_Colectivo`);
 
 --
@@ -164,7 +166,7 @@ ALTER TABLE `colectivos`
 -- AUTO_INCREMENT de la tabla `lugares`
 --
 ALTER TABLE `lugares`
-  MODIFY `ID_Lugar` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Asiento` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `pasajeros`
@@ -179,10 +181,10 @@ ALTER TABLE `pasajes`
   MODIFY `ID_Pasaje` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `rutas`
+-- AUTO_INCREMENT de la tabla `viaje`
 --
-ALTER TABLE `rutas`
-  MODIFY `ID_Ruta` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `viaje`
+  MODIFY `ID_Viaje` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -199,14 +201,14 @@ ALTER TABLE `lugares`
 --
 ALTER TABLE `pasajes`
   ADD CONSTRAINT `pasajes_ibfk_1` FOREIGN KEY (`ID_Pasajero`) REFERENCES `pasajeros` (`ID_Pasajero`),
-  ADD CONSTRAINT `pasajes_ibfk_2` FOREIGN KEY (`ID_Lugar`) REFERENCES `lugares` (`ID_Lugar`),
-  ADD CONSTRAINT `pasajes_ibfk_3` FOREIGN KEY (`ID_Ruta`) REFERENCES `rutas` (`ID_Ruta`);
+  ADD CONSTRAINT `pasajes_ibfk_2` FOREIGN KEY (`ID_Lugar`) REFERENCES `lugares` (`ID_Asiento`),
+  ADD CONSTRAINT `pasajes_ibfk_3` FOREIGN KEY (`ID_Ruta`) REFERENCES `viaje` (`ID_Viaje`);
 
 --
--- Filtros para la tabla `rutas`
+-- Filtros para la tabla `viaje`
 --
-ALTER TABLE `rutas`
-  ADD CONSTRAINT `rutas_ibfk_1` FOREIGN KEY (`ID_Colectivo`) REFERENCES `colectivos` (`ID_Colectivo`);
+ALTER TABLE `viaje`
+  ADD CONSTRAINT `viaje_ibfk_1` FOREIGN KEY (`ID_Colectivo`) REFERENCES `colectivos` (`ID_Colectivo`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
