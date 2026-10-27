@@ -13,9 +13,11 @@ public class Main {
         PasajeroData data = new PasajeroData();
 
         System.out.println("=== INTEGRANTES DEL GRUPO ===");
-        System.out.println("1. Juan Gomez - DNI 30111222");
-        System.out.println("2. Maria Lopez - DNI 30222333");
-        System.out.println("3. (agregar los tuyos)");
+        System.out.println("1. Juan Gomez - DNI: 30111222 (prueba)");
+        System.out.println("2. Maria Lopez - DNI: 30222333 (prueba) ");
+        System.out.println("3. Facundo Maldonado - DNI: 48293678)");
+        System.out.println("4. Olguin Sam - DNI: 45674835");
+        System.out.println("5. Luis Roman Manzano - DNI: 58284932");
         System.out.println();
 
         // ALTA
@@ -49,3 +51,5 @@ public class Main {
         // data.borrar(p1.getIdPasajero());
     }
 }
+
+
