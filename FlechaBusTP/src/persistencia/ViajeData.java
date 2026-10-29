@@ -120,6 +120,31 @@ public List<Viaje>listarViajes() {
     }
 
 
+public Viaje buscarViaje(int id) {
+    String sql = "SELECT * FROM rutas WHERE ID_Ruta = ? AND Estado = 1";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            Viaje v = new Viaje();
+            v.setIdViaje(rs.getInt("ID_Ruta"));
+            v.setOrigen(rs.getString("Origen"));
+            v.setDestino(rs.getString("Destino"));
+            v.setHoraSalida(rs.getTime("HoraSalida").toLocalTime());
+            v.setHoraLlegada(rs.getTime("HoraLlegada").toLocalTime());
+            v.setPrecio(rs.getDouble("Precio"));
+            v.setEstado(rs.getBoolean("Estado"));
+            Colectivo c = new Colectivo();
+            c.setIdColectivo(rs.getInt("ID_Colectivo"));
+            v.setColectivo(c);
+            return v;
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error" + ex.getMessage());
+    }
+    return null;
+}
 
     
 }

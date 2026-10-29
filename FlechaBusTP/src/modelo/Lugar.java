@@ -67,8 +67,8 @@ public class Lugar {
     public String toString() {
         return "Lugar{" + "idAsiento=" + idAsiento + ", colectivo=" + colectivo + ", numeroAsiento=" + numeroAsiento + ", estado=" + estado + '}';
     }
-    
-    
+
+ 
     
     
     
