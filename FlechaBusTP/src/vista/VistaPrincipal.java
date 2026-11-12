@@ -27,6 +27,7 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
             }
         };
         modeloPasajeros.addColumn("ID");
+        modeloPasajeros.addColumn("DNI");
         modeloPasajeros.addColumn("NOMBRE");
         modeloPasajeros.addColumn("APELLIDO");
         modeloPasajeros.addColumn("CORREO");
@@ -36,10 +37,11 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
     }
     
     private void cargarTablaPasajeros() {
-        modeloPasajeros.setRowCount(0); // Vacía la tabla
-        for (modelo.Pasajero p : pasajeroData.listar()) {
+        modeloPasajeros.setRowCount(0); // Vacia la tabla
+        for (modelo.Pasajero p:pasajeroData.listar()) {
             modeloPasajeros.addRow(new Object[]{
-                p.getIdPasajero(), 
+                p.getIdPasajero(),
+                p.getDni(),
                 p.getNombre(), 
                 p.getApellido(), 
                 p.getCorreo(), 
@@ -299,7 +301,7 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
         jLabel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel4.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jLabel4.setText("ID PASAJERO:");
+        jLabel4.setText("DNI ");
         jLabel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel5.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
@@ -356,6 +358,11 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
         });
 
         btnModificar1.setText("MODIFICAR");
+        btnModificar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificar1ActionPerformed(evt);
+            }
+        });
 
         btnEliminar1.setText("ELIMINAR");
         btnEliminar1.addActionListener(new java.awt.event.ActionListener() {
@@ -365,8 +372,18 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
         });
 
         btnBuscar1.setText("BUSCAR");
+        btnBuscar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscar1ActionPerformed(evt);
+            }
+        });
 
         btnListar1.setText("LISTAR");
+        btnListar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListar1ActionPerformed(evt);
+            }
+        });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -385,6 +402,11 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(jTable2);
@@ -1239,13 +1261,16 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
     }
 
     try {
+        String dni=jTextField1.getText();
         String nombre = jTextField2.getText();
         String apellido = jTextField3.getText();
         String correo = jTextField4.getText();
         String telefono = jTextField5.getText();
         boolean estado = jCheckBox1.isSelected();
-
-        modelo.Pasajero nuevo = new modelo.Pasajero("Sin DNI", nombre, apellido, correo, telefono, estado);
+        
+        Integer.parseInt(dni);//solo numeros para dni
+        
+        modelo.Pasajero nuevo = new modelo.Pasajero(dni, nombre, apellido, correo, telefono, estado);
         
         pasajeroData.insertar(nuevo);
         
@@ -1253,9 +1278,11 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
         limpiarCamposPasajero();
         cargarTablaPasajeros();
         
-    } catch (Exception ex) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error" + ex.getMessage());
-    }
+} catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "El DNI debe contener solo numeros","Error de Formato", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error"+ex.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnGuardar1ActionPerformed
 
     private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
@@ -1271,6 +1298,111 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
     }
         
     }//GEN-LAST:event_btnEliminar1ActionPerformed
+
+    private void btnModificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar1ActionPerformed
+        // TODO add your handling code here:
+        
+     int filaSeleccionada = jTable2.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Seleccione un pasajero de la tabla para modificar.", "Atención", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+       
+        if (jTextField1.getText().isEmpty()||jTextField2.getText().isEmpty()||jTextField3.getText().isEmpty() || jTextField4.getText().isEmpty()||jTextField5.getText().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Campos vacíos", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            int id = (Integer) modeloPasajeros.getValueAt(filaSeleccionada, 0);
+            String dni = jTextField1.getText();
+            String nombre = jTextField2.getText();
+            String apellido = jTextField3.getText();
+            String correo = jTextField4.getText();
+            String telefono = jTextField5.getText();
+            boolean estado = jCheckBox1.isSelected();
+
+            Integer.parseInt(dni);
+
+
+            modelo.Pasajero pasajeroModificado = new modelo.Pasajero(id, dni, nombre, apellido, correo, telefono, estado);
+            pasajeroData.actualizar(pasajeroModificado);
+
+            javax.swing.JOptionPane.showMessageDialog(this,"Pasajero modificado");
+            limpiarCamposPasajero();
+            cargarTablaPasajeros();
+
+        } catch (NumberFormatException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El DNI debe contener solo numeros", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al modificar" + ex.getMessage(),"Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }   
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnModificar1ActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+        
+        int filaSeleccionada=jTable2.getSelectedRow();
+        if (filaSeleccionada!=-1) {
+            jTextField1.setText(modeloPasajeros.getValueAt(filaSeleccionada,1).toString()); 
+            jTextField2.setText(modeloPasajeros.getValueAt(filaSeleccionada,2).toString()); 
+            jTextField3.setText(modeloPasajeros.getValueAt(filaSeleccionada,3).toString()); 
+            jTextField4.setText(modeloPasajeros.getValueAt(filaSeleccionada,4).toString()); 
+            jTextField5.setText(modeloPasajeros.getValueAt(filaSeleccionada,5).toString()); 
+            
+            String estadoStr = modeloPasajeros.getValueAt(filaSeleccionada, 6).toString();
+            jCheckBox1.setSelected(estadoStr.equals("Activo"));
+        }
+        
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
+        // TODO add your handling code here:
+        
+        String input=javax.swing.JOptionPane.showInputDialog(this, "Ingrese el ID del pasajero a buscar");
+        
+        if (input!=null&&!input.trim().isEmpty()) {
+            try {
+                int id=Integer.parseInt(input);
+                modelo.Pasajero p=pasajeroData.buscar(id);
+                
+                if (p != null){
+                    jTextField1.setText(p.getDni());
+                    jTextField2.setText(p.getNombre());
+                    jTextField3.setText(p.getApellido());
+                    jTextField4.setText(p.getCorreo());
+                    jTextField5.setText(p.getTelefono());
+                    jCheckBox1.setSelected(p.isEstado());
+                    javax.swing.JOptionPane.showMessageDialog(this, "Pasajero encontrado");
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Pasajero no encontrado", "Busqueda", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un numero entero","Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+        
+        
+    }//GEN-LAST:event_btnBuscar1ActionPerformed
+
+    private void btnListar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListar1ActionPerformed
+        // TODO add your handling code here:
+        limpiarCamposPasajero();
+        cargarTablaPasajeros();
+        
+    }//GEN-LAST:event_btnListar1ActionPerformed
 
     /**
      * @param args the command line arguments
