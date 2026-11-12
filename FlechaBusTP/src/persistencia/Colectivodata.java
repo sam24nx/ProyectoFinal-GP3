@@ -74,13 +74,15 @@ public class Colectivodata {
             ps.setBoolean(6, c.isEstado());
             ps.setInt(7, c.getIdColectivo());
             ps.executeUpdate();
+            
+            ps.close();
         } catch (SQLException ex) {
             System.out.println("Error al actualizar: " + ex.getMessage());
         }
     }
 
     public void bajaLogica(int id) {
-        String sql = "UPDATE colectivos SET estado=false WHERE id_colectivo=?";
+        String sql = "UPDATE colectivos SET estado=0 WHERE id_colectivo=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -111,9 +113,10 @@ public class Colectivodata {
         return null;
     }
 
-    public List<Colectivo> listar() {
+    public List<Colectivo> listar(){
         List<Colectivo> lista = new ArrayList<>();
-        String sql = "SELECT * FROM colectivos WHERE estado=true ORDER BY id_colectivo";
+        //String sql = "SELECT * FROM colectivos WHERE estado=true ORDER BY id_colectivo";// MUESTRA SOLO LOS ACTIVOS
+        String sql = "SELECT * FROM colectivos ORDER BY id_colectivo";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -128,7 +131,7 @@ public class Colectivodata {
                 lista.add(c);
             }
         } catch (SQLException ex) {
-            System.out.println("Error al listar: " + ex.getMessage());
+           javax.swing.JOptionPane.showMessageDialog(null, "Error al listar: " + ex.getMessage(), "Error BD", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
         return lista;
     }

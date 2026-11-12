@@ -8,16 +8,74 @@ import javax.swing.*;
 
 
 public class VistaPrincipal extends javax.swing.JFrame {
-private persistencia.PasajeroData pasajeroData = new persistencia.PasajeroData();
+private persistencia.PasajeroData pasajeroData=new persistencia.PasajeroData();
 private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.table.DefaultTableModel();
   
+private persistencia.Colectivodata colectivoData=new persistencia.Colectivodata();
+private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.table.DefaultTableModel();
+
+
     public VistaPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        
+        //pasajeros
         armarCabeceraPasajeros();
         cargarTablaPasajeros();
         
+        //colectivo
+        armarCabeceraColectivos();
+        cargarTablaColectivos();
+        limpiarCamposColectivo();
+        
+        
     }
+    
+    private void limpiarCamposColectivo() {
+        jTextField7.setText("");
+        jTextField8.setText("");
+        jTextField9.setText("");
+        jTextField10.setText("");
+        jTextField11.setText("");
+        jCheckBox2.setSelected(false);
+    }
+    
+    
+    private void cargarTablaColectivos() {
+        modeloColectivos.setRowCount(0);
+        for (modelo.Colectivo c:colectivoData.listar()) {
+            modeloColectivos.addRow(new Object[]{
+                c.getIdColectivo(),
+                c.getMatricula(),
+                c.getMarca(), 
+                c.getModelo(), 
+                c.getCapacidad(), 
+                c.getChofer(), 
+                c.isEstado() ? "Activo" : "Inactivo"
+            });
+        }
+    }
+    
+    
+    private void armarCabeceraColectivos() {
+        modeloColectivos=new javax.swing.table.DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        modeloColectivos.addColumn("ID");
+        modeloColectivos.addColumn("MATRICULA");
+        modeloColectivos.addColumn("MARCA");
+        modeloColectivos.addColumn("MODELO");
+        modeloColectivos.addColumn("CAPACIDAD");
+        modeloColectivos.addColumn("CHOFER");
+        modeloColectivos.addColumn("ESTADO");
+        jTable3.setModel(modeloColectivos);
+    }
+    
+    
 
     private void armarCabeceraPasajeros() {
         modeloPasajeros = new javax.swing.table.DefaultTableModel() {
@@ -106,14 +164,12 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
         jTable2 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jTextField8 = new javax.swing.JTextField();
         jTextField9 = new javax.swing.JTextField();
@@ -519,10 +575,6 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
         jLabel10.setText("COLECTIVOS:");
         jLabel10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel11.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jLabel11.setText("ID COLECTIVO:");
-        jLabel11.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
         jLabel12.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabel12.setText("MATRICULA:");
         jLabel12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -560,19 +612,54 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
                 "ID", "MATRICULA", "MARCA", "MODELO", "CAPACIDAD", "CHOFER", "ESTADO"
             }
         ));
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable3);
 
         btnNuevo2.setText("NUEVO");
+        btnNuevo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevo2ActionPerformed(evt);
+            }
+        });
 
         btnGuardar2.setText("GUARDAR");
+        btnGuardar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardar2ActionPerformed(evt);
+            }
+        });
 
         btnModificar2.setText("MODIFICAR");
+        btnModificar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificar2ActionPerformed(evt);
+            }
+        });
 
         btnEliminar2.setText("ELIMINAR");
+        btnEliminar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminar2ActionPerformed(evt);
+            }
+        });
 
         btnBuscar2.setText("BUSCAR");
+        btnBuscar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscar2ActionPerformed(evt);
+            }
+        });
 
         btnListar2.setText("LISTAR");
+        btnListar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListar2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -585,62 +672,53 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField7)
-                        .addGap(41, 41, 41)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnModificar2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnBuscar2)
-                                .addGap(60, 60, 60)
-                                .addComponent(btnListar2)
-                                .addGap(55, 55, 55))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel15)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel14)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel17)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jCheckBox2))
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(btnEliminar2)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel16)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnNuevo2)
-                                    .addComponent(jLabel13))
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(52, 52, 52)
-                                        .addComponent(btnGuardar2)))))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addContainerGap())))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                                    .addComponent(jTextField7)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(btnNuevo2)
+                                .addGap(60, 60, 60)
+                                .addComponent(btnGuardar2)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnModificar2))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnListar2)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                        .addGap(143, 143, 143)
+                                        .addComponent(btnBuscar2)
+                                        .addGap(45, 45, 45)
+                                        .addComponent(btnEliminar2))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel14))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCheckBox2))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -649,26 +727,23 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
                 .addComponent(jLabel10)
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel17)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox2))
+                    .addComponent(jLabel12)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel15)
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel12))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17)
+                    .addComponent(jCheckBox2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo2)
                     .addComponent(btnGuardar2)
@@ -676,8 +751,8 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
                     .addComponent(btnEliminar2)
                     .addComponent(btnBuscar2)
                     .addComponent(btnListar2))
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
 
@@ -941,7 +1016,7 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(btnModificar4)
                         .addGap(401, 401, 401)))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane5)
@@ -1404,6 +1479,160 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
         
     }//GEN-LAST:event_btnListar1ActionPerformed
 
+    private void btnNuevo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevo2ActionPerformed
+        // TODO add your handling code here:
+        
+        limpiarCamposColectivo();
+        
+        
+    }//GEN-LAST:event_btnNuevo2ActionPerformed
+
+    private void btnGuardar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar2ActionPerformed
+        // TODO add your handling code here:
+        
+        if (jTextField7.getText().isEmpty()||jTextField8.getText().isEmpty()||jTextField9.getText().isEmpty()||jTextField10.getText().isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete los campos","Campos vacios", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            String matricula=jTextField7.getText();
+            String marca=jTextField8.getText();
+            String modelo=jTextField9.getText();
+            int capacidad=Integer.parseInt(jTextField10.getText());
+            String chofer=jTextField11.getText();
+            boolean estado=jCheckBox2.isSelected();
+            
+            modelo.Colectivo nuevo=new modelo.Colectivo(matricula, marca, modelo, capacidad, chofer, estado);
+            
+            colectivoData.insertar(nuevo);
+            
+            javax.swing.JOptionPane.showMessageDialog(this,"Colectivo guardado");
+            limpiarCamposColectivo();
+            cargarTablaColectivos();
+            
+        } catch (NumberFormatException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this,"La capacidad debe ser un numero","Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Ocurrio un error al guardar" + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnGuardar2ActionPerformed
+
+    private void btnModificar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar2ActionPerformed
+        // TODO add your handling code here:
+        
+        int filaSeleccionada = jTable3.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Seleccione un colectivo de la tabla","Atención", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (jTextField7.getText().isEmpty()||jTextField8.getText().isEmpty()||jTextField9.getText().isEmpty()||jTextField10.getText().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,"complete los campos","Campos vacíos", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            int id=(Integer) modeloColectivos.getValueAt(filaSeleccionada,0);
+            String matricula = jTextField7.getText();
+            String marca = jTextField8.getText();
+            String modelo = jTextField9.getText();
+            int capacidad = Integer.parseInt(jTextField10.getText());
+            String chofer = jTextField11.getText();
+            boolean estado = jCheckBox2.isSelected();
+
+            modelo.Colectivo colectivoModificado=new modelo.Colectivo(id,matricula, marca, modelo, capacidad, chofer, estado);
+            colectivoData.actualizar(colectivoModificado);
+
+            javax.swing.JOptionPane.showMessageDialog(this,"Colectivo modificado");
+            limpiarCamposColectivo();
+            cargarTablaColectivos();
+
+        } catch (NumberFormatException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Verifique que el ID y la capacidad sean numeros","Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Error al modificar" + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+        
+    }//GEN-LAST:event_btnModificar2ActionPerformed
+
+    private void btnEliminar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar2ActionPerformed
+        // TODO add your handling code here:
+        
+    int filaSeleccionada = jTable3.getSelectedRow();
+    if (filaSeleccionada != -1) {
+     
+    int id = (Integer) modeloColectivos.getValueAt(filaSeleccionada, 0);
+        
+
+        colectivoData.bajaLogica(id);
+        
+        javax.swing.JOptionPane.showMessageDialog(this, "Colectivo dado de baja");
+        cargarTablaColectivos();
+        limpiarCamposColectivo();
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Seleccione un colectivo de la tabla para dar de baja");
+    }
+        
+    }//GEN-LAST:event_btnEliminar2ActionPerformed
+
+    private void btnBuscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar2ActionPerformed
+        // TODO add your handling code here:
+        
+        String input = javax.swing.JOptionPane.showInputDialog(this, "Ingrese el ID del colectivo");
+        
+        if (input!=null&&!input.trim().isEmpty()) {
+            try {
+                int id = Integer.parseInt(input);
+                modelo.Colectivo c = colectivoData.buscar(id);
+                
+                if (c != null) {
+                    jTextField7.setText(c.getMatricula());
+                    jTextField8.setText(c.getMarca());
+                    jTextField9.setText(c.getModelo());
+                    jTextField10.setText(String.valueOf(c.getCapacidad()));
+                    jTextField11.setText(c.getChofer());
+                    jCheckBox2.setSelected(c.isEstado());
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "Colectivo encontrado");
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(this, "No se encontro ningun colectivo", "Búsqueda", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                javax.swing.JOptionPane.showMessageDialog(this, "El ID debe ser un numero entero.","Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+    }//GEN-LAST:event_btnBuscar2ActionPerformed
+
+    private void btnListar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListar2ActionPerformed
+        // TODO add your handling code here:
+        
+        limpiarCamposColectivo();
+        cargarTablaColectivos();
+        
+    }//GEN-LAST:event_btnListar2ActionPerformed
+
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+        // TODO add your handling code here:
+        int filaSeleccionada = jTable3.getSelectedRow();
+        if (filaSeleccionada != -1) {
+
+            jTextField7.setText(modeloColectivos.getValueAt(filaSeleccionada, 1).toString());
+            jTextField8.setText(modeloColectivos.getValueAt(filaSeleccionada, 2).toString()); 
+            jTextField9.setText(modeloColectivos.getValueAt(filaSeleccionada, 3).toString()); 
+            jTextField10.setText(modeloColectivos.getValueAt(filaSeleccionada, 4).toString()); 
+            jTextField11.setText(modeloColectivos.getValueAt(filaSeleccionada, 5).toString()); 
+            
+            String estadoStr = modeloColectivos.getValueAt(filaSeleccionada, 6).toString();
+            jCheckBox2.setSelected(estadoStr.equals("Activo"));
+        }
+        
+    }//GEN-LAST:event_jTable3MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1482,7 +1711,6 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1562,7 +1790,6 @@ private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.ta
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
