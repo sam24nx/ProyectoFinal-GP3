@@ -8,6 +8,10 @@ import javax.swing.*;
 
 
 public class VistaPrincipal extends javax.swing.JFrame {
+    
+private persistencia.Asientodata asientoData = new persistencia.Asientodata();
+private javax.swing.table.DefaultTableModel modeloAsientos = new javax.swing.table.DefaultTableModel();
+    
 private persistencia.PasajeroData pasajeroData=new persistencia.PasajeroData();
 private javax.swing.table.DefaultTableModel modeloPasajeros = new javax.swing.table.DefaultTableModel();
   
@@ -29,8 +33,51 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
         cargarTablaColectivos();
         limpiarCamposColectivo();
         
+        //asiento
+        armarCabeceraAsientos();
+        cargarTablaAsientos();
+        limpiarCamposAsiento();
+        
         
     }
+    
+    
+    private void limpiarCamposAsiento() {
+        jTextField13.setText("");
+        jTextField14.setText("");
+        jCheckBox3.setSelected(false);
+        jTable4.clearSelection();
+    }
+    
+    
+    private void cargarTablaAsientos() {
+        modeloAsientos.setRowCount(0);
+        for (modelo.Lugar a : asientoData.listar()) { 
+            modeloAsientos.addRow(new Object[]{
+                a.getIdAsiento(),
+                a.getColectivo().getIdColectivo(), // Sacamos el ID del objeto Colectivo anidado
+                a.getNumeroAsiento(),
+                a.isEstado() ? "Disponible" : "Ocupado" // Usamos isEstado()
+            });
+        }
+    }
+    
+    
+    private void armarCabeceraAsientos() {
+        modeloAsientos = new javax.swing.table.DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        modeloAsientos.addColumn("ID LUGAR");
+        modeloAsientos.addColumn("ID COLECTIVO");
+        modeloAsientos.addColumn("N° ASIENTO");
+        modeloAsientos.addColumn("DISPONIBILIDAD");
+        jTable4.setModel(modeloAsientos);
+    }
+    
+    
     
     private void limpiarCamposColectivo() {
         jTextField7.setText("");
@@ -186,11 +233,9 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
         btnListar2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
         jTextField13 = new javax.swing.JTextField();
         jTextField14 = new javax.swing.JTextField();
         jCheckBox3 = new javax.swing.JCheckBox();
@@ -764,12 +809,8 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
         jLabel18.setText("ASIENTOS:");
         jLabel18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel19.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jLabel19.setText("ID:");
-        jLabel19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
         jLabel20.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jLabel20.setText("COLECTIVO:");
+        jLabel20.setText("ID COLECTIVO:");
         jLabel20.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel21.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
@@ -780,19 +821,47 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
         jLabel22.setText("DISPONIBLE:");
         jLabel22.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jCheckBox3.setText("jCheckBox3");
-
         btnNuevo3.setText("NUEVO");
+        btnNuevo3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevo3ActionPerformed(evt);
+            }
+        });
 
         btnGuardar3.setText("GUARDAR");
+        btnGuardar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardar3ActionPerformed(evt);
+            }
+        });
 
         btnModificar3.setText("MODIFICAR");
+        btnModificar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificar3ActionPerformed(evt);
+            }
+        });
 
         btnEliminar3.setText("ELIMINAR");
+        btnEliminar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminar3ActionPerformed(evt);
+            }
+        });
 
         btnBuscar3.setText("BUSCAR");
+        btnBuscar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscar3ActionPerformed(evt);
+            }
+        });
 
         btnListar3.setText("LISTAR");
+        btnListar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListar3ActionPerformed(evt);
+            }
+        });
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -805,6 +874,11 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
                 "ID", "COLECTIVO", "N° ASIENTO", "DISPONIBLE"
             }
         ));
+        jTable4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable4MouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(jTable4);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -817,9 +891,9 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnNuevo3)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGuardar3)
                         .addGap(40, 40, 40)
+                        .addComponent(btnGuardar3)
+                        .addGap(18, 18, 18)
                         .addComponent(btnModificar3)
                         .addGap(46, 46, 46)
                         .addComponent(btnEliminar3)
@@ -829,25 +903,17 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
                         .addComponent(btnListar3))
                     .addComponent(jLabel18)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel19)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel20)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel22)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox3))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel21)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(jLabel22)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox3))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -857,9 +923,7 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
                 .addComponent(jLabel18)
                 .addGap(42, 42, 42)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19)
                     .addComponent(jLabel21)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -875,7 +939,7 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
                     .addComponent(btnEliminar3)
                     .addComponent(btnBuscar3)
                     .addComponent(btnListar3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -1633,6 +1697,149 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
         
     }//GEN-LAST:event_jTable3MouseClicked
 
+    private void btnNuevo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevo3ActionPerformed
+        // TODO add your handling code here:
+        
+        limpiarCamposAsiento();
+    }//GEN-LAST:event_btnNuevo3ActionPerformed
+
+    private void btnGuardar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar3ActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+            int idColectivo = Integer.parseInt(jTextField13.getText());
+            int nroAsiento = Integer.parseInt(jTextField14.getText());
+            boolean estado = jCheckBox3.isSelected();
+
+
+            modelo.Colectivo col = new modelo.Colectivo();
+            col.setIdColectivo(idColectivo);
+
+   
+            modelo.Lugar nuevoLugar = new modelo.Lugar(col, nroAsiento, estado);
+            asientoData.insertar(nuevoLugar);
+            javax.swing.JOptionPane.showMessageDialog(this, "Lugar guardado exitosamente");
+            limpiarCamposAsiento();
+            cargarTablaAsientos();
+
+        } catch (NumberFormatException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Los campos ID Colectivo y N° Asiento deben ser numeros", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnGuardar3ActionPerformed
+
+    private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
+        // TODO add your handling code here:
+        
+        int filaSeleccionada = jTable4.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            
+            jTextField13.setText(modeloAsientos.getValueAt(filaSeleccionada, 1).toString());
+            
+            
+            jTextField14.setText(modeloAsientos.getValueAt(filaSeleccionada, 2).toString());
+            
+            
+            String estadoTexto = modeloAsientos.getValueAt(filaSeleccionada, 3).toString();
+            jCheckBox3.setSelected(estadoTexto.equals("Disponible"));
+        }
+        
+    }//GEN-LAST:event_jTable4MouseClicked
+
+    private void btnModificar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar3ActionPerformed
+        // TODO add your handling code here:
+        
+        int filaSeleccionada = jTable4.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar un asiento de la tabla para modificarlo.");
+            return;
+        }
+
+        try {
+          
+            int idLugar = (Integer) modeloAsientos.getValueAt(filaSeleccionada, 0);
+            
+            int idColectivo = Integer.parseInt(jTextField13.getText());
+            int nroAsiento = Integer.parseInt(jTextField14.getText());
+            boolean estado = jCheckBox3.isSelected();
+
+            modelo.Colectivo col = new modelo.Colectivo();
+            col.setIdColectivo(idColectivo);
+
+            
+            modelo.Lugar lugarModificado = new modelo.Lugar(idLugar, col, nroAsiento, estado);
+
+            asientoData.actualizar(lugarModificado);
+            javax.swing.JOptionPane.showMessageDialog(this, "Lugar modificado exitosamente");
+            limpiarCamposAsiento();
+            cargarTablaAsientos();
+
+        } catch (NumberFormatException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Revise que los numeros sean validos", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnModificar3ActionPerformed
+
+    private void btnEliminar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar3ActionPerformed
+        // TODO add your handling code here:
+        
+        int filaSeleccionada = jTable4.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar un asiento de la tabla para darlo de baja.");
+            return;
+        }
+
+        int idLugar = (Integer) modeloAsientos.getValueAt(filaSeleccionada, 0);
+        
+        int confirmacion = javax.swing.JOptionPane.showConfirmDialog(this, "Seguro que desea pasar este asiento a inactivo/ocupado?", "Confirmar", javax.swing.JOptionPane.YES_NO_OPTION);
+        
+        if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
+            asientoData.bajaLogica(idLugar);
+            javax.swing.JOptionPane.showMessageDialog(this, "Asiento dado de baja");
+            limpiarCamposAsiento();
+            cargarTablaAsientos();
+        }
+        
+    }//GEN-LAST:event_btnEliminar3ActionPerformed
+
+    private void btnListar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListar3ActionPerformed
+        // TODO add your handling code here:
+        
+        cargarTablaAsientos();
+        limpiarCamposAsiento();
+        
+    }//GEN-LAST:event_btnListar3ActionPerformed
+
+    private void btnBuscar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar3ActionPerformed
+        // TODO add your handling code here:
+        try {
+       
+            String inputId = javax.swing.JOptionPane.showInputDialog(this, "Ingrese el ID del lugar que desea buscar:", "Buscar Asiento", javax.swing.JOptionPane.QUESTION_MESSAGE);
+            
+            if (inputId != null && !inputId.trim().isEmpty()) {
+                int idBuscado = Integer.parseInt(inputId);
+                
+                
+                modelo.Lugar lugarEncontrado = asientoData.buscar(idBuscado);
+                
+                if (lugarEncontrado != null) {
+                    
+                    jTextField13.setText(String.valueOf(lugarEncontrado.getColectivo().getIdColectivo()));
+                    jTextField14.setText(String.valueOf(lugarEncontrado.getNumeroAsiento()));
+                    jCheckBox3.setSelected(lugarEncontrado.isEstado());
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "Lugar encontrado");
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(this, "No existe ningún lugar con el ID: " + idBuscado, "No encontrado", javax.swing.JOptionPane.WARNING_MESSAGE);
+                    limpiarCamposAsiento();
+                }
+            }
+        } catch (NumberFormatException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese un numero de ID valido.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnBuscar3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1718,7 +1925,6 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -1774,7 +1980,6 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
