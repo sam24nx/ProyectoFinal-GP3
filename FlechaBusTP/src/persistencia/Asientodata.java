@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import modelo.Lugar;
 import modelo.Colectivo;
 import modelo.Conexion;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 public class Asientodata {
     
@@ -23,18 +24,56 @@ public class Asientodata {
         }
     }
 
-    public void insertar(Lugar lugar) {
-        String sql = "INSERT INTO lugares (ID_Colectivo, NumeroAsiento, Estado) VALUES (?, ?, ?)";
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, lugar.getColectivo().getIdColectivo()); 
-            ps.setInt(2, lugar.getNumeroAsiento()); 
-            ps.setBoolean(3, lugar.isEstado());
-            
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Error al guardar el lugar: " + ex.getMessage(), "Error BD", javax.swing.JOptionPane.ERROR_MESSAGE);
-        }
+public boolean insertar(Lugar lugar) {
+    if (lugar.getNumeroAsiento()<= 0){
+        JOptionPane.showMessageDialog(null, "El numero de asiento debe ser mayor a 0.", "Numero Invalido",JOptionPane.WARNING_MESSAGE);
+        return false;
     }
+    String sqlValidacion="SELECT capacidad, Estado FROM colectivos WHERE ID_Colectivo = ?";
+    try (PreparedStatement psVal=con.prepareStatement(sqlValidacion)) {
+        psVal.setInt(1,lugar.getColectivo().getIdColectivo());
+        ResultSet rsVal=psVal.executeQuery();
+        if (rsVal.next()) {
+            boolean colectivoActivo=rsVal.getBoolean("Estado");
+            int capacidadMaxima=rsVal.getInt("capacidad");
+            
+            if (!colectivoActivo) {
+                JOptionPane.showMessageDialog(null, 
+                    "No se pueden agregar asientos: El colectivo seleccionado esta inactivo.", 
+                    "Colectivo Inactivo", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            
+            if (lugar.getNumeroAsiento()>capacidadMaxima) {
+                JOptionPane.showMessageDialog(null, 
+                    "El colectivo seleccionado solo tiene capacidad para "+ capacidadMaxima + "asientos.", 
+                    "Capacidad Superada", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null,"El colectivo seleccionado no existe.","Error",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null,"Error al validar el colectivo: "+ex.getMessage(),"Error BD", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+    String sqlInsert="INSERT INTO lugares (ID_Colectivo, NumeroAsiento, Estado) VALUES (?, ?, ?)";
+    try (PreparedStatement ps=con.prepareStatement(sqlInsert)) {
+        ps.setInt(1,lugar.getColectivo().getIdColectivo()); 
+        ps.setInt(2,lugar.getNumeroAsiento()); 
+        ps.setBoolean(3,lugar.isEstado());
+        ps.executeUpdate();
+        return true; 
+        
+    } catch (SQLIntegrityConstraintViolationException ex) {
+        JOptionPane.showMessageDialog(null,"El asiento N° "+lugar.getNumeroAsiento()+" ya está registrado para este colectivo.", "Asiento Duplicado", JOptionPane.WARNING_MESSAGE);
+        return false;
+    } catch (SQLException ex){
+        JOptionPane.showMessageDialog(null,"Error al guardar el lugar: "+ex.getMessage(),"Error BD",JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+}
 
     public void actualizar(Lugar lugar) {
         String sql = "UPDATE lugares SET ID_Colectivo = ?, NumeroAsiento = ?, Estado = ? WHERE ID_Asiento = ?";

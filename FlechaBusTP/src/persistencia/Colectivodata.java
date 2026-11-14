@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.Colectivo;
 import modelo.Conexion;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 public class Colectivodata {
 
@@ -28,24 +29,24 @@ public class Colectivodata {
         }
     }
 
-    public void insertar(Colectivo c) {
-        String sql = "INSERT INTO colectivos (matricula, marca, modelo, capacidad, chofer, estado) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, c.getMatricula());
-            ps.setString(2, c.getMarca());
-            ps.setString(3, c.getModelo());
-            ps.setInt(4, c.getCapacidad());
-            ps.setString(5, c.getChofer());
-            ps.setBoolean(6, c.isEstado());
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) c.setIdColectivo(rs.getInt(1));
-            // Generar los asientos automáticamente según la capacidad
-            generarAsientos(c.getIdColectivo(), c.getCapacidad());
-        } catch (SQLException ex) {
-            System.out.println("Error al insertar: " + ex.getMessage());
-        }
+    public boolean insertarColectivo(Colectivo colectivo) {
+    String sql="INSERT INTO colectivos (matricula, capacidad, modelo, Estado) VALUES (?, ?, ?, ?)";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1,colectivo.getMatricula()); 
+        ps.setInt(2,colectivo.getCapacidad()); 
+        ps.setString(3,colectivo.getModelo());
+        ps.setBoolean(4,colectivo.isEstado());
+        ps.executeUpdate();
+        return true;
+        
+    } catch (SQLIntegrityConstraintViolationException ex) {
+        JOptionPane.showMessageDialog(null, "Ya existe un colectivo registrado con la patente: " + colectivo.getMatricula(), "Patente Duplicada", JOptionPane.WARNING_MESSAGE);
+        return false;
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al guardar el colectivo: " + ex.getMessage(), "Error BD", JOptionPane.ERROR_MESSAGE);
+        return false;
     }
+}
 
     private void generarAsientos(int idColectivo, int capacidad) {
         String sql = "INSERT INTO lugares (id_colectivo, numero_asiento, estado) VALUES (?, ?, ?)";

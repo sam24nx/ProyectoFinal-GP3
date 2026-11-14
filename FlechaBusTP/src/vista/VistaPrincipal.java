@@ -38,6 +38,8 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
         cargarTablaAsientos();
         limpiarCamposAsiento();
         
+        //iconos actualizados
+        
         
     }
     
@@ -55,9 +57,9 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
         for (modelo.Lugar a : asientoData.listar()) { 
             modeloAsientos.addRow(new Object[]{
                 a.getIdAsiento(),
-                a.getColectivo().getIdColectivo(), // Sacamos el ID del objeto Colectivo anidado
+                a.getColectivo().getIdColectivo(), 
                 a.getNumeroAsiento(),
-                a.isEstado() ? "Disponible" : "Ocupado" // Usamos isEstado()
+                a.isEstado() ? "Disponible" : "Ocupado" 
             });
         }
     }
@@ -142,7 +144,7 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
     }
     
     private void cargarTablaPasajeros() {
-        modeloPasajeros.setRowCount(0); // Vacia la tabla
+        modeloPasajeros.setRowCount(0);
         for (modelo.Pasajero p:pasajeroData.listar()) {
             modeloPasajeros.addRow(new Object[]{
                 p.getIdPasajero(),
@@ -719,7 +721,7 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnNuevo1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -727,12 +729,12 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnModificar1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEliminar1)
+                                .addComponent(btnListar1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnBuscar1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnListar1))
-                            .addComponent(jScrollPane2)
+                                .addComponent(btnEliminar1))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel5)
@@ -800,12 +802,12 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
                     .addComponent(btnNuevo1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnListar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnListar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("PASAJEROS", jPanel1);
@@ -813,7 +815,7 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel18.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        jLabel18.setText("ASIENTOS:");
+        jLabel18.setText("ASIENTOS");
         jLabel18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel20.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
@@ -868,6 +870,7 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
             }
         });
 
+        btnListar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/listar_asiento.png"))); // NOI18N
         btnListar3.setText("LISTAR");
         btnListar3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -901,40 +904,40 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel21)
+                            .addComponent(btnNuevo3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel21)
-                                    .addComponent(btnNuevo3))
+                                .addComponent(btnGuardar3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(btnGuardar3)
+                                        .addComponent(jLabel22)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(jLabel22)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jCheckBox3))
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(btnModificar3)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnEliminar3)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnBuscar3)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnListar3))))
+                                        .addComponent(jCheckBox3))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(101, 101, 101)
-                                        .addComponent(jLabel20)
+                                        .addComponent(btnModificar3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(btnListar3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnBuscar3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnEliminar3))))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(101, 101, 101)
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(305, 305, 305)
-                        .addComponent(jLabel18)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                        .addComponent(jLabel18))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -951,17 +954,17 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel22)
                     .addComponent(jCheckBox3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificar3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnListar3))
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
+                    .addComponent(btnListar3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         jTabbedPane2.addTab("ASIENTOS", jPanel3);
@@ -1131,7 +1134,7 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
                     .addComponent(jLabel29)
                     .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo4)
                     .addComponent(btnGuardar4)
@@ -1308,7 +1311,7 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
                     .addComponent(jLabel36)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo5)
                     .addComponent(btnGuardar5)
@@ -1359,7 +1362,7 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("LISTADOS", jPanel6);
@@ -1500,23 +1503,22 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
     private void btnGuardar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar3ActionPerformed
         // TODO add your handling code here:
 
-        try {
-            int idColectivo = Integer.parseInt(jTextField13.getText());
-            int nroAsiento = Integer.parseInt(jTextField14.getText());
-            boolean estado = jCheckBox3.isSelected();
-
-            modelo.Colectivo col = new modelo.Colectivo();
-            col.setIdColectivo(idColectivo);
-
-            modelo.Lugar nuevoLugar = new modelo.Lugar(col, nroAsiento, estado);
-            asientoData.insertar(nuevoLugar);
-            javax.swing.JOptionPane.showMessageDialog(this, "Lugar guardado exitosamente");
+try {
+        int idColectivo=Integer.parseInt(jTextField13.getText());
+        int nroAsiento=Integer.parseInt(jTextField14.getText());
+        boolean estado=jCheckBox3.isSelected();
+        modelo.Colectivo col=new modelo.Colectivo();
+        col.setIdColectivo(idColectivo);
+        modelo.Lugar nuevoLugar=new modelo.Lugar(col,nroAsiento,estado);
+        boolean guardado=asientoData.insertar(nuevoLugar);
+        if (guardado){
+            javax.swing.JOptionPane.showMessageDialog(this, "Asiento guardado");
             limpiarCamposAsiento();
             cargarTablaAsientos();
-
-        } catch (NumberFormatException ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Los campos ID Colectivo y N° Asiento deben ser numeros", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
+    } catch(NumberFormatException ex) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Los campos ID Colectivo y N° Asiento deben ser numeros", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnGuardar3ActionPerformed
 
     private void btnNuevo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevo3ActionPerformed
@@ -1769,32 +1771,34 @@ private javax.swing.table.DefaultTableModel modeloColectivos=new javax.swing.tab
     private void btnGuardar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar2ActionPerformed
         // TODO add your handling code here:
 
-        if (jTextField7.getText().isEmpty()||jTextField8.getText().isEmpty()||jTextField9.getText().isEmpty()||jTextField10.getText().isEmpty()){
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete los campos","Campos vacios", javax.swing.JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        if (jTextField7.getText().isEmpty() || jTextField8.getText().isEmpty() || jTextField9.getText().isEmpty() || jTextField10.getText().isEmpty()){
+        javax.swing.JOptionPane.showMessageDialog(this, "complete los campos", "Campos vacíos", javax.swing.JOptionPane.WARNING_MESSAGE);
+        return;
+    }
 
-        try {
-            String matricula=jTextField7.getText();
-            String marca=jTextField8.getText();
-            String modelo=jTextField9.getText();
-            int capacidad=Integer.parseInt(jTextField10.getText());
-            String chofer=jTextField11.getText();
-            boolean estado=jCheckBox2.isSelected();
+    try {
+        String matricula=jTextField7.getText();
+        String marca=jTextField8.getText();
+        String modelo=jTextField9.getText();
+        int capacidad=Integer.parseInt(jTextField10.getText());
+        String chofer=jTextField11.getText();
+        boolean estado=jCheckBox2.isSelected();
 
-            modelo.Colectivo nuevo=new modelo.Colectivo(matricula, marca, modelo, capacidad, chofer, estado);
+        modelo.Colectivo nuevo=new modelo.Colectivo(matricula, marca, modelo, capacidad, chofer, estado);
 
-            colectivoData.insertar(nuevo);
-
-            javax.swing.JOptionPane.showMessageDialog(this,"Colectivo guardado");
+  
+        boolean guardado=colectivoData.insertarColectivo(nuevo);
+        if (guardado) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Colectivo guardado");
             limpiarCamposColectivo();
             cargarTablaColectivos();
-
-        } catch (NumberFormatException ex) {
-            javax.swing.JOptionPane.showMessageDialog(this,"La capacidad debe ser un numero","Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            javax.swing.JOptionPane.showMessageDialog(this,"Ocurrio un error al guardar" + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
+
+    } catch (NumberFormatException ex) {
+        javax.swing.JOptionPane.showMessageDialog(this, "La capacidad debe ser un numero", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    } catch (Exception ex) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Ocurrio un error al guardar: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnGuardar2ActionPerformed
 
     private void btnNuevo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevo2ActionPerformed
