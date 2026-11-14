@@ -1788,8 +1788,8 @@ try {
 
   
         boolean guardado=colectivoData.insertarColectivo(nuevo);
-        if (guardado) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Colectivo guardado");
+        if (guardado){
+            javax.swing.JOptionPane.showMessageDialog(this,"Colectivo guardado");
             limpiarCamposColectivo();
             cargarTablaColectivos();
         }

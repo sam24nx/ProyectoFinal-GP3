@@ -48,21 +48,7 @@ public class Colectivodata {
     }
 }
 
-    private void generarAsientos(int idColectivo, int capacidad) {
-        String sql = "INSERT INTO lugares (id_colectivo, numero_asiento, estado) VALUES (?, ?, ?)";
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            for (int i = 1; i <= capacidad; i++) {
-                ps.setInt(1, idColectivo);
-                ps.setInt(2, i);
-                ps.setBoolean(3, true);
-                ps.addBatch();
-            }
-            ps.executeBatch();
-            System.out.println("Se generaron " + capacidad + " asientos para el colectivo " + idColectivo);
-        } catch (SQLException ex) {
-            System.out.println("Error al generar asientos: " + ex.getMessage());
-        }
-    }
+
 
     public void actualizar(Colectivo c) {
         String sql = "UPDATE colectivos SET matricula=?, marca=?, modelo=?, capacidad=?, chofer=?, estado=? WHERE id_colectivo=?";
