@@ -22,7 +22,7 @@ public class Conexion {
         try (Connection con = getConnection()) {
             System.out.println("Conexión exitosa a la base de datos FlechaFlash");
         } catch (SQLException e) {
-            System.out.println("Error al conectar: " + e.getMessage());
+            System.out.println("Error al conectar:"+e.getMessage());
         }
     }
 }

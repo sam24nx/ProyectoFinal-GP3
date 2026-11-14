@@ -81,6 +81,7 @@ public class PasajeroData {
     // LISTAR todos
     public List<Pasajero> listar() {
         List<Pasajero> lista = new ArrayList<>();
+        //String sql="SELECT * FROM Pasajeros WHERE estado=true"//
         String sql = "SELECT * FROM Pasajeros";
         try (Connection con = Conexion.getConnection();
              Statement st = con.createStatement();
@@ -125,7 +126,7 @@ public class PasajeroData {
         }
     }
 
-    // BORRADO FÍSICO
+    // BORRADO FiSICO
     public void borrar(int id) {
         String sql = "DELETE FROM Pasajeros WHERE ID_Pasajero=?";
         try (Connection con = Conexion.getConnection();

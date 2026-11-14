@@ -18,8 +18,7 @@ public class Pasajero {
     public Pasajero() {}
 
     
-    public Pasajero(String dni, String nombre, String apellido,
-                    String correo, String telefono, boolean estado) {
+    public Pasajero(String dni, String nombre, String apellido,String correo, String telefono, boolean estado) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -28,6 +27,18 @@ public class Pasajero {
         this.estado = estado;
     }
 
+    public Pasajero(int idPasajero, String dni, String nombre, String apellido, String correo, String telefono, boolean estado) {
+        this.idPasajero = idPasajero;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.estado = estado;
+    }
+    
+    
+    
   
     public int getIdPasajero() { return idPasajero; }
     public void setIdPasajero(int idPasajero) { this.idPasajero = idPasajero; }
