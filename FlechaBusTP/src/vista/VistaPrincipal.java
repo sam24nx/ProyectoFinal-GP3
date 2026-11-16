@@ -924,7 +924,7 @@ private void armarCabeceraViajes() {
                 btnEliminar1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEliminar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(842, 331, -1, 41));
+        jPanel1.add(btnEliminar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 330, -1, 41));
 
         btnBuscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/buscar_pasajero.png"))); // NOI18N
         btnBuscar1.setText("BUSCAR");
