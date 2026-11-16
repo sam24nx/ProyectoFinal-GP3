@@ -1540,7 +1540,7 @@ private void armarCabeceraViajes() {
         modelo.Viaje viajeSel = (modelo.Viaje) jComboBox4.getSelectedItem();
 
         if (pasajeroSel == null || lugarSel == null || viajeSel == null || jDateChooser2.getDate() == null || jTextField22.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Complete todos los campos obligatorios.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Complete todos los campos obligatorios","Campos incompletos", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -1560,9 +1560,9 @@ private void armarCabeceraViajes() {
                 cargarTablaAsientos();
             }
         } catch (java.time.format.DateTimeParseException ex) {
-            JOptionPane.showMessageDialog(this, "Formato de hora invalido. Use HH:mm (ej: 14:30)", "Error de Hora", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Formato de hora invalido Use HH:mm (ej: 14:30)", "Error de Hora", JOptionPane.ERROR_MESSAGE);
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "El precio debe ser un numero valido.", "Error de Precio", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El precio debe ser un numero valido","Error de Precio", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnGuardar5ActionPerformed
