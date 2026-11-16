@@ -1269,7 +1269,7 @@ private void armarCabeceraViajes() {
         jLabel37.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabel37.setText("PRECIO:");
         jLabel37.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel5.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 250, -1, -1));
+        jPanel5.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, -1, -1));
 
         jPanel5.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 150, 220, -1));
 
@@ -1281,7 +1281,7 @@ private void armarCabeceraViajes() {
                 jTextField23ActionPerformed(evt);
             }
         });
-        jPanel5.add(jTextField23, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 250, 137, -1));
+        jPanel5.add(jTextField23, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, 137, -1));
 
         jTable6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1303,53 +1303,59 @@ private void armarCabeceraViajes() {
 
         jPanel5.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 433, 1008, 231));
 
+        btnNuevo5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/nuevo_pasaje.png"))); // NOI18N
         btnNuevo5.setText("NUEVO");
         btnNuevo5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevo5ActionPerformed(evt);
             }
         });
-        jPanel5.add(btnNuevo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, -1, -1));
+        jPanel5.add(btnNuevo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, -1, 40));
 
+        btnGuardar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/guardar_pasaje.png"))); // NOI18N
         btnGuardar5.setText("GUARDAR");
         btnGuardar5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardar5ActionPerformed(evt);
             }
         });
-        jPanel5.add(btnGuardar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, -1, -1));
+        jPanel5.add(btnGuardar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, -1, 40));
 
+        btnModificar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/modificar_pasaje.png"))); // NOI18N
         btnModificar5.setText("MODIFICAR");
         btnModificar5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificar5ActionPerformed(evt);
             }
         });
-        jPanel5.add(btnModificar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, -1, -1));
+        jPanel5.add(btnModificar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 380, -1, 40));
 
+        btnEliminar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/eliminar_pasaje.png"))); // NOI18N
         btnEliminar5.setText("ELIMINAR");
         btnEliminar5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminar5ActionPerformed(evt);
             }
         });
-        jPanel5.add(btnEliminar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, -1, -1));
+        jPanel5.add(btnEliminar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 380, -1, 40));
 
+        btnBuscar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/buscar_pasaje.png"))); // NOI18N
         btnBuscar5.setText("BUSCAR");
         btnBuscar5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscar5ActionPerformed(evt);
             }
         });
-        jPanel5.add(btnBuscar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 380, -1, -1));
+        jPanel5.add(btnBuscar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 380, -1, 40));
 
+        btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/listar_pasaje.png"))); // NOI18N
         btnListar.setText("ACTUALIZAR");
         btnListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarActionPerformed(evt);
             }
         });
-        jPanel5.add(btnListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 380, -1, -1));
+        jPanel5.add(btnListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 380, -1, 40));
 
         jComboBox4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1380,7 +1386,7 @@ private void armarCabeceraViajes() {
                 jButton11ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 380, -1, -1));
+        jPanel5.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 390, -1, -1));
 
         jTabbedPane2.addTab("PASAJES", jPanel5);
 

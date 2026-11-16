@@ -1891,7 +1891,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="450" y="250" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="450" y="240" width="-1" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1938,7 +1938,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="510" y="250" width="137" height="-1"/>
+                      <AbsoluteConstraints x="510" y="240" width="137" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -2018,6 +2018,9 @@
                 </Container>
                 <Component class="javax.swing.JButton" name="btnNuevo5">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/recursos/nuevo_pasaje.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="NUEVO"/>
                   </Properties>
                   <Events>
@@ -2025,12 +2028,15 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="10" y="380" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="10" y="380" width="-1" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnGuardar5">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/recursos/guardar_pasaje.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="GUARDAR"/>
                   </Properties>
                   <Events>
@@ -2038,12 +2044,15 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="110" y="380" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="140" y="380" width="-1" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnModificar5">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/recursos/modificar_pasaje.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="MODIFICAR"/>
                   </Properties>
                   <Events>
@@ -2051,12 +2060,15 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="220" y="380" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="290" y="380" width="-1" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnEliminar5">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/recursos/eliminar_pasaje.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="ELIMINAR"/>
                   </Properties>
                   <Events>
@@ -2064,12 +2076,15 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="560" y="380" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="740" y="380" width="-1" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnBuscar5">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/recursos/buscar_pasaje.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="BUSCAR"/>
                   </Properties>
                   <Events>
@@ -2077,12 +2092,15 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="450" y="380" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="600" y="380" width="-1" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnListar">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/recursos/listar_pasaje.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="ACTUALIZAR"/>
                   </Properties>
                   <Events>
@@ -2090,7 +2108,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="330" y="380" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="440" y="380" width="-1" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -2174,7 +2192,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="870" y="380" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="910" y="390" width="-1" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
