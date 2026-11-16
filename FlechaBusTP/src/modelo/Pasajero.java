@@ -63,9 +63,6 @@ public class Pasajero {
 
     @Override
     public String toString() {
-        return "Pasajero{id=" + idPasajero + ", dni=" + dni +
-               ", nombre=" + nombre + " " + apellido +
-               ", correo=" + correo + ", telefono=" + telefono +
-               ", estado=" + estado + "}";
+        return dni + " - " + nombre + " " + apellido;
     }
 }

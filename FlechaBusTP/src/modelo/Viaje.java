@@ -4,6 +4,7 @@
  */
 package modelo;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
@@ -16,6 +17,7 @@ public class Viaje {
     private int idViaje;
     private String origen;
     private String destino;
+    private LocalDate fecha;
     private LocalTime horaSalida;
     private LocalTime horaLlegada;
     private Colectivo colectivo;
@@ -25,27 +27,41 @@ public class Viaje {
     public Viaje(){}
     
     
-    public Viaje(int idViaje,String origen,String destino,LocalTime horaSalida,LocalTime horaLlegada,Colectivo colectivo,double precio,boolean estado) {
-        this.idViaje=idViaje;
-        this.origen=origen;
-        this.destino=destino;
-        this.horaSalida=horaSalida;
-        this.horaLlegada=horaLlegada;
-        this.colectivo=colectivo;
-        this.precio=precio;
-        this.estado=estado;
+public Viaje(int idViaje, String origen, String destino, LocalDate fecha, LocalTime horaSalida, LocalTime horaLlegada, Colectivo colectivo, double precio, boolean estado) {
+        this.idViaje = idViaje;
+        this.origen = origen;
+        this.destino = destino;
+        this.fecha = fecha;
+        this.horaSalida = horaSalida;
+        this.horaLlegada = horaLlegada;
+        this.colectivo = colectivo;
+        this.precio = precio;
+        this.estado = estado;
     }
     
-    public Viaje(String origen,String destino,LocalTime horaSalida,LocalTime horaLlegada,Colectivo colectivo,double precio,boolean estado) {
-        this.origen=origen;
-        this.destino=destino;
-        this.horaSalida=horaSalida;
-        this.horaLlegada=horaLlegada;
-        this.colectivo=colectivo;
-        this.precio=precio;
-        this.estado=estado;
+    public Viaje(String origen, String destino, LocalDate fecha, LocalTime horaSalida, LocalTime horaLlegada, Colectivo colectivo, double precio, boolean estado) {
+        this.origen = origen;
+        this.destino = destino;
+        this.fecha = fecha;
+        this.horaSalida = horaSalida;
+        this.horaLlegada = horaLlegada;
+        this.colectivo = colectivo;
+        this.precio = precio;
+        this.estado = estado;
     }
 
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    
+    
+    
+    
     public int getIdViaje() {
         return idViaje;
     }
@@ -110,11 +126,12 @@ public class Viaje {
         this.estado = estado;
     }
 
-    @Override
-    public String toString() {
-        return "Viaje{" + "idViaje=" + idViaje + ", origen=" + origen + ", destino=" + destino + ", horaSalida=" + horaSalida + ", horaLlegada=" + horaLlegada + ", colectivo=" + colectivo + ", precio=" + precio + ", estado=" + estado + '}';
-    }
-    
+@Override
+public String toString() {
+    return origen + " -> " + destino + " (" + fecha + ")";
+}
+
+
     
     
     
