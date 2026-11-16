@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -162,4 +163,49 @@ public class PasajeData {
         }
         return pasajes;
     }
+    
+    public void registrarPasaje(Pasaje pasaje) {
+    
+// Validación: 
+    ViajeData viajeData = new ViajeData();
+    LocalTime horaSalida = viajeData.obtenerHoraSalida(pasaje.getViaje().getIdViaje());
+
+    if (horaSalida == null) {
+        JOptionPane.showMessageDialog(null, "La ruta no existe o está inactiva");
+        return;
+    }
+
+    LocalTime horaActual = LocalTime.now();
+    if (horaSalida.isBefore(horaActual)) {
+        JOptionPane.showMessageDialog(null, 
+            "No se puede vender un pasaje para un viaje que ya salió.\n"
+            + "Hora de salida: " + horaSalida + " hs");
+        return;
+    }
+
+   
+    String sql = "INSERT INTO pasajes(ID_Pasajero, ID_Lugar, ID_Ruta, FechaVenta, HoraVenta, Precio, Estado) "
+               + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ps.setInt(1, pasaje.getPasajero().getIdPasajero());
+        ps.setInt(2, pasaje.getLugar().getIdAsiento());
+        ps.setInt(3, pasaje.getViaje().getIdViaje());
+        ps.setDate(4, java.sql.Date.valueOf(pasaje.getFechaVenta()));
+        ps.setTime(5, java.sql.Time.valueOf(pasaje.getHoraVenta()));
+        ps.setDouble(6, pasaje.getPrecio());
+        ps.setBoolean(7, pasaje.isEstado());
+        ps.executeUpdate();
+
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            pasaje.setIdPasaje(rs.getInt(1));
+            JOptionPane.showMessageDialog(null, "Pasaje guardado");
+        }
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error" + ex.getMessage());
+    }
+}
+
 }

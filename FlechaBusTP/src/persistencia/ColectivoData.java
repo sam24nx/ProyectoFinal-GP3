@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -28,40 +29,54 @@ public class ColectivoData {
         }
     }
 
-    public void insertar(Colectivo c) {
-        String sql = "INSERT INTO colectivos (matricula, marca, modelo, capacidad, chofer, estado) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, c.getMatricula());
-            ps.setString(2, c.getMarca());
-            ps.setString(3, c.getModelo());
-            ps.setInt(4, c.getCapacidad());
-            ps.setString(5, c.getChofer());
-            ps.setBoolean(6, c.isEstado());
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) c.setIdColectivo(rs.getInt(1));
-            // Generar los asientos automáticamente según la capacidad
-            generarAsientos(c.getIdColectivo(), c.getCapacidad());
-        } catch (SQLException ex) {
-            System.out.println("Error al insertar: " + ex.getMessage());
-        }
-    }
+ public void insertarColectivo(Colectivo colectivo) {
+    String sql = "INSERT INTO colectivos(Matricula, Marca, Modelo, Capacidad, Chofer, Estado) "
+               + "VALUES (?, ?, ?, ?, ?, ?)";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ps.setString(1, colectivo.getMatricula());
+        ps.setString(2, colectivo.getMarca());
+        ps.setString(3, colectivo.getModelo());
+        ps.setInt(4, colectivo.getCapacidad());
+        ps.setString(5, colectivo.getChofer());
+        ps.setBoolean(6, colectivo.isEstado());
+        ps.executeUpdate();
 
-    private void generarAsientos(int idColectivo, int capacidad) {
-        String sql = "INSERT INTO lugares (id_colectivo, numero_asiento, estado) VALUES (?, ?, ?)";
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            for (int i = 1; i <= capacidad; i++) {
-                ps.setInt(1, idColectivo);
-                ps.setInt(2, i);
-                ps.setBoolean(3, true);
-                ps.addBatch();
-            }
-            ps.executeBatch();
-            System.out.println("Se generaron " + capacidad + " asientos para el colectivo " + idColectivo);
-        } catch (SQLException ex) {
-            System.out.println("Error al generar asientos: " + ex.getMessage());
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            int idColectivo = rs.getInt(1);
+            colectivo.setIdColectivo(idColectivo);
+
+            // Asignación automática de asientos según la capacidad
+            generarAsientos(idColectivo, colectivo.getCapacidad());
+
+            JOptionPane.showMessageDialog(null, "Colectivo guardado con " 
+                    + colectivo.getCapacidad() + " asientos generados");
         }
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error" + ex.getMessage());
     }
+}
+
+ 
+
+   private void generarAsientos(int idColectivo, int capacidad) {
+    String sql = "INSERT INTO lugares(ID_Colectivo, numero_asiento, Estado) VALUES (?, ?, 1)";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        for (int i = 1; i <= capacidad; i++) {
+            ps.setInt(1, idColectivo);
+            ps.setInt(2, i);
+            ps.executeUpdate();
+        }
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al generar asientos: " + ex.getMessage());
+    }
+}
+
+ 
 
     public void actualizar(Colectivo c) {
         String sql = "UPDATE colectivos SET matricula=?, marca=?, modelo=?, capacidad=?, chofer=?, estado=? WHERE id_colectivo=?";
