@@ -19,7 +19,7 @@ public class Main {
         Asientodata asiData = new Asientodata();
         ViajeData viaData = new ViajeData();
 
-        System.out.println("=== CARGANDO 10 COLECTIVOS ===");
+//colectivos
         Colectivo[] colectivos = {
             new Colectivo("AA101BB", "Mercedes-Benz", "O500 RSD", 44, "Carlos Perez", true),
             new Colectivo("AB202CC", "Scania", "K410", 48, "Roberto Gomez", true),
@@ -38,7 +38,7 @@ public class Main {
 
         List<Colectivo> listaColectivos = colData.listar();
 
-        System.out.println("=== CARGANDO 10 PASAJEROS ===");
+//pasajeros
         Pasajero[] pasajeros = {
             new Pasajero("30111222", "Juan", "Gomez", "jgomez@gmail.com", "2664111222", true),
             new Pasajero("31222333", "Maria", "Lopez", "mlopez@gmail.com", "2664222333", true),
@@ -55,7 +55,7 @@ public class Main {
             pasData.insertar(p);
         }
 
-        System.out.println("=== CARGANDO 10 ASIENTOS ===");
+//asientos
         if (!listaColectivos.isEmpty()) {
             for (int i = 0; i < 10; i++) {
                 Colectivo colAsignado = listaColectivos.get(i % listaColectivos.size());
@@ -64,7 +64,7 @@ public class Main {
             }
         }
 
-        System.out.println("=== CARGANDO 10 RUTAS ===");
+//rutas
         if (!listaColectivos.isEmpty()) {
             LocalDate manana = LocalDate.now().plusDays(1);
             Viaje[] viajes = {
@@ -84,6 +84,6 @@ public class Main {
             }
         }
 
-        System.out.println("=== CARGA FINALIZADA ===");
+
     }
 }

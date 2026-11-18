@@ -104,7 +104,7 @@ public class Colectivodata {
 
     public List<Colectivo> listar(){
         List<Colectivo> lista = new ArrayList<>();
-        //String sql = "SELECT * FROM colectivos WHERE estado=true ORDER BY id_colectivo";// MUESTRA SOLO LOS ACTIVOS
+        //String sql = "SELECT * FROM colectivos WHERE estado=true ORDER BY id_colectivo";// MUESTRA SOLO LOS ACTIVOS preguntar como mostrar
         String sql = "SELECT * FROM colectivos ORDER BY id_colectivo";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();

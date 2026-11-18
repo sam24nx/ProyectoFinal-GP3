@@ -15,8 +15,7 @@ public class PasajeroData {
 
     // ALTA
     public void insertar(Pasajero p) {
-        String sql = "INSERT INTO Pasajeros (DNI, Nombre, Apellido, Correo, Telefono, Estado) "
-                   + "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Pasajeros (DNI, Nombre, Apellido, Correo, Telefono, Estado) "+ "VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, p.getDni());
@@ -36,8 +35,7 @@ public class PasajeroData {
 
     // MODIFICAR
     public void actualizar(Pasajero p) {
-        String sql = "UPDATE Pasajeros SET DNI=?, Nombre=?, Apellido=?, Correo=?, Telefono=?, Estado=? "
-                   + "WHERE ID_Pasajero=?";
+        String sql = "UPDATE Pasajeros SET DNI=?, Nombre=?, Apellido=?, Correo=?, Telefono=?, Estado=? "+ "WHERE ID_Pasajero=?";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, p.getDni());
@@ -81,7 +79,7 @@ public class PasajeroData {
     // LISTAR todos
     public List<Pasajero> listar() {
         List<Pasajero> lista = new ArrayList<>();
-        //String sql="SELECT * FROM Pasajeros WHERE estado=true"//
+        //String sql="SELECT * FROM Pasajeros WHERE estado=true"// MUESTRA SOLO LOS PASAJEROS EN ESTADO ACTIVO PREGUNTAR
         String sql = "SELECT * FROM Pasajeros";
         try (Connection con = Conexion.getConnection();
              Statement st = con.createStatement();
@@ -126,16 +124,4 @@ public class PasajeroData {
         }
     }
 
-    // BORRADO FiSICO
-    public void borrar(int id) {
-        String sql = "DELETE FROM Pasajeros WHERE ID_Pasajero=?";
-        try (Connection con = Conexion.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            ps.executeUpdate();
-            System.out.println("Pasajero " + id + " eliminado.");
-        } catch (SQLException e) {
-            System.out.println("Error al borrar: " + e.getMessage());
-        }
-    }
 }

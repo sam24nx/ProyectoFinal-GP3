@@ -26,7 +26,7 @@ public class Asientodata {
 
 public boolean insertar(Lugar lugar) {
     if (lugar.getNumeroAsiento()<= 0){
-        JOptionPane.showMessageDialog(null, "El numero de asiento debe ser mayor a 0.", "Numero Invalido",JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "El numero de asiento debe ser mayor a 0", "Numero Invalido",JOptionPane.WARNING_MESSAGE);
         return false;
     }
     String sqlValidacion="SELECT capacidad, Estado FROM colectivos WHERE ID_Colectivo = ?";
@@ -39,14 +39,14 @@ public boolean insertar(Lugar lugar) {
             
             if (!colectivoActivo) {
                 JOptionPane.showMessageDialog(null, 
-                    "No se pueden agregar asientos: El colectivo seleccionado esta inactivo.", 
+                    "No se pueden agregar asientos: El colectivo seleccionado esta inactivo", 
                     "Colectivo Inactivo", JOptionPane.WARNING_MESSAGE);
                 return false;
             }
             
             if (lugar.getNumeroAsiento()>capacidadMaxima) {
                 JOptionPane.showMessageDialog(null, 
-                    "El colectivo seleccionado solo tiene capacidad para "+ capacidadMaxima + "asientos.", 
+                    "El colectivo seleccionado solo tiene capacidad para "+ capacidadMaxima + "asientos", 
                     "Capacidad Superada", JOptionPane.WARNING_MESSAGE);
                 return false;
             }
