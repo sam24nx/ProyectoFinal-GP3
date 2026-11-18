@@ -21,12 +21,8 @@ private int idPasaje;
     private LocalTime horaVenta;
     private double precio;
     private boolean estado;
-    public Pasaje() {
-}
-
     
 public Pasaje(int idPasaje,Pasajero pasajero,Lugar lugar,Viaje viaje,LocalDate fechaVenta,LocalTime horaVenta,double precio,boolean estado) {
-      
         this.idPasaje=idPasaje;
         this.pasajero=pasajero;
         this.lugar=lugar;
@@ -36,7 +32,6 @@ public Pasaje(int idPasaje,Pasajero pasajero,Lugar lugar,Viaje viaje,LocalDate f
         this.precio=precio;
         this.estado=estado;    
 }
-
 
 public Pasaje(Pasajero pasajero,Lugar lugar,Viaje viaje,LocalDate fechaVenta,LocalTime horaVenta,double precio,boolean estado) {
         this.pasajero=pasajero;
@@ -116,6 +111,12 @@ public Pasaje(Pasajero pasajero,Lugar lugar,Viaje viaje,LocalDate fechaVenta,Loc
     public String toString() {
         return "Pasaje{" + "idPasaje=" + idPasaje + ", pasajero=" + pasajero + ", lugar=" + lugar + ", viaje=" + viaje + ", fechaVenta=" + fechaVenta + ", horaVenta=" + horaVenta + ", precio=" + precio + ", estado=" + estado + '}';
     }
+
+
+
+
+
+
 
 
 }

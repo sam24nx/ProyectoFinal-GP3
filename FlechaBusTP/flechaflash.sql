@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-10-2026 a las 23:25:49
+-- Tiempo de generación: 16-11-2026 a las 22:59:38
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -68,14 +68,6 @@ CREATE TABLE `pasajeros` (
   `Estado` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `pasajeros`
---
-
-INSERT INTO `pasajeros` (`ID_Pasajero`, `DNI`, `Nombre`, `Apellido`, `Correo`, `Telefono`, `Estado`) VALUES
-(1, '30111222', 'Juan', 'Gomez', 'jgomez@gmail.com', '155555111', 1),
-(2, '30222333', 'Maria', 'Lopez', 'mlopez@gmail.com', '155555222', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -103,6 +95,7 @@ CREATE TABLE `viaje` (
   `ID_Viaje` int(11) NOT NULL,
   `Origen` varchar(50) DEFAULT NULL,
   `Destino` varchar(50) DEFAULT NULL,
+  `fecha` date NOT NULL,
   `HoraSalida` time DEFAULT NULL,
   `HoraLlegada` time DEFAULT NULL,
   `ID_Colectivo` int(11) DEFAULT NULL,
@@ -126,6 +119,7 @@ ALTER TABLE `colectivos`
 --
 ALTER TABLE `lugares`
   ADD PRIMARY KEY (`ID_Asiento`),
+  ADD UNIQUE KEY `uk_colectivo_asiento` (`ID_Colectivo`,`NumeroAsiento`),
   ADD KEY `ID_Colectivo` (`ID_Colectivo`);
 
 --
@@ -172,7 +166,7 @@ ALTER TABLE `lugares`
 -- AUTO_INCREMENT de la tabla `pasajeros`
 --
 ALTER TABLE `pasajeros`
-  MODIFY `ID_Pasajero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_Pasajero` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `pasajes`

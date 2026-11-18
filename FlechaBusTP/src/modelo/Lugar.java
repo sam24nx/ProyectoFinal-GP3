@@ -67,8 +67,8 @@ public class Lugar {
     public String toString() {
         return "Asiento N° " + numeroAsiento;
     }
-
- 
+    
+    
     
     
     
